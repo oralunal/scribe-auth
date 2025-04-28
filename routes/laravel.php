@@ -15,7 +15,7 @@ Route::middleware(['web'])->get('/docs/auth', function() {
     }
 });
 
-Route::middleware(['web'])->post('/docs/auth', function(Request $request) {
+Route::middleware(['web', 'throttle:scribe_login'])->post('/docs/auth', function(Request $request) {
     $key = config('scribe_auth.auth_key');
 
     if ($request->input('key') === $key) {

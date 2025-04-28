@@ -2,6 +2,9 @@
 
 namespace oralunal\ScribeAuth;
 
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use oralunal\ScribeAuth\Http\Middleware\ScribeAuthMiddleware;
@@ -17,6 +20,8 @@ class ScribeAuthServiceProvider extends ServiceProvider
         $this->bootViews();
 
         $this->app['router']->aliasMiddleware('scribe.auth', ScribeAuthMiddleware::class);
+
+        $this->configureRateLimiting();
     }
 
     protected function bootRoutes(): void
@@ -40,5 +45,12 @@ class ScribeAuthServiceProvider extends ServiceProvider
         ], 'scribe-auth-config');
 
         $this->mergeConfigFrom(__DIR__.'/../config/scribe_auth.php', 'scribe_auth');
+    }
+
+    protected function configureRateLimiting(): void
+    {
+        RateLimiter::for('scribe_auth', function (Request $request) {
+            return Limit::perMinute(config('scribe_auth.throttle_max_attempts'))->by(optional($request->user())->id ?: $request->ip());
+        });
     }
 }
