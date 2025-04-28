@@ -2,6 +2,10 @@
 
 A Laravel middleware package that adds authentication protection to your Scribe API documentation. This package provides a simple way to secure your API documentation with basic authentication, ensuring that only authorized users can access your API documentation pages.
 
+## Requirements
+1. Scribe's `type` config should be set to `laravel` in your `config/scribe.php` file.
+2. Scribe's `laravel->add_routes` config should be set to `true` in your `config/scribe.php` file.
+
 ## Installation
 
 1. Install the package via Composer:
