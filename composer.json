@@ -1,0 +1,34 @@
+{
+  "name": "oralunal/scribe-auth",
+  "license": "MIT",
+  "description": "A Laravel middleware package that adds authentication protection to your Scribe API documentation.",
+  "keywords": [
+    "API",
+    "documentation",
+    "laravel",
+    "middleware"
+  ],
+  "homepage": "http://github.com/oralunal/scribe-auth",
+  "authors": [
+    {
+      "name": "Oral Unal"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "knuckleswtf/scribe": "^5.0",
+    "laravel/framework": "^12.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "oralunal\\ScribeAuth\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "oralunal\\ScribeAuth\\ScribeAuthServiceProvider"
+      ]
+    }
+  }
+}
